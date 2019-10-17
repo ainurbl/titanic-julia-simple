@@ -157,7 +157,7 @@ using ScikitLearn
 using ScikitLearn.CrossValidation: train_test_split
 
 # Разбиваем тренировочные данные на "новые" тренировочные и тестовые
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2019)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=2020)
 
 @sk_import preprocessing: StandardScaler
 
@@ -168,7 +168,7 @@ X_test_scaled = scaler.transform(X_test)
 @sk_import linear_model: LogisticRegression
 
 # Создание и обучение модели
-lr = LogisticRegression(random_state=21, solver="sag", max_iter=1000).fit(X_train_scaled, y_train)
+lr = LogisticRegression(random_state=18, solver="sag", max_iter=1000).fit(X_train_scaled, y_train)
 
 # Предсказываем выживаемость
 y_pred = lr.predict(X_test_scaled)
@@ -190,9 +190,9 @@ startSection("Применение градиентного бустинга")
 using XGBoost
 
 # Создание и обучение модели
-num_round = 20
+num_round = 23
 bst = xgboost(X_train, num_round, label = y_train,
-              eta = 0.5, max_depth = 2, objective = "binary:logistic")
+              eta = 0.45, max_depth = 2, objective = "binary:logistic")
 
 # Предсказываем вероятности выживаемости
 preds_proba = XGBoost.predict(bst, X_test)
